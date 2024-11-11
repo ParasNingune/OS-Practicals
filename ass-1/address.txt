@@ -1,7 +1,0 @@
-Name		RollNo	Age	City
-
-Paras		3078	19	Pune
-Sakshi		3020	20	Pune
-Soham		3021	20	Pune
-Sid		3037	21	Pune
-Harsh		3077	20	Pune

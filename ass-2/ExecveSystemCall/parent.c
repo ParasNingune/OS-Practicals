@@ -30,7 +30,7 @@ void intToStrArray(int *arr, int n, char *strArr[])
     for(int i=0; i<n; i++)
     {
         strArr[i] = malloc(20*sizeof(char));    //Allocate 20 bytes for each integer string
-        sprintf(strArr[i], "%d", arr[i]);
+        sprintf(strArr[i], "%d", arr[i]);   //Typecasts integer to string
     }
     strArr[n] = NULL;
 }

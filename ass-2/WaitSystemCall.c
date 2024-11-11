@@ -59,7 +59,7 @@ int main()
         scanf("%d", &arr[i]);
     }
 
-    int pid = fork();
+    int pid = fork();   //Fork system call
 
     if(pid == 0)
     {

@@ -9,7 +9,7 @@ int main()
 {
     int frameSize = 3;
 
-    int pages[10] = {7,0,1,2,3,0,1,2,0,3};
+    int pages[10] = {7,0,1,2,3,0,1,2,0,3};  //Initializing the pages with random values
     printf("\nEnter no of frames(Greater than or Equal to 3): ");
     scanf("%d", &frameSize);
     printf("\nEnter 10 pages...\n");
@@ -49,25 +49,27 @@ void fifo(int pages[], int frameSize)
     {
         int found=0;
 
+        //Check if page already in frame
         for(int j=0; j<end; j++)
         {
             if(frame[j] == pages[i])
             {
-                found = 1;
+                found = 1;  //Page found
                 break;
             }
         }
 
+        //If page not found replace
         if(!found)
         {
             faults++;
             if(end<frameSize)
             {
-                frame[end++] = pages[i];
+                frame[end++] = pages[i];    //Add page in frame if space available
             }
             else
             {
-                frame[front] = pages[i];
+                frame[front] = pages[i];    //Replace the oldest page
                 front = (front+1)%frameSize;
             }
 
@@ -96,7 +98,7 @@ void lru(int pages[], int frameSize)
 {
     int faults=0, end=0;
 
-    int frame[frameSize];
+    int frame[frameSize];   
     int recent[frameSize];
 
     printf("\nPage\tFrames\tPage Fault\n");
@@ -104,22 +106,25 @@ void lru(int pages[], int frameSize)
     for(int i=0; i<10;i++)
     {
         int found=0, min=0;
+
+        // Check if page is in frame and update its recent usage
         for(int j=0; j<end; j++)
         {
             if(frame[j] == pages[i])
             {
                 found = 1;
-                recent[j] = i;
-                break;
+                recent[j] = i;  // Update recent usage of the page
+                break;  
             }
         }
 
+        // Page not found in frame
         if(!found) 
         {
             faults++;
             if(end<frameSize)
             {
-                frame[end] = pages[i];
+                frame[end] = pages[i];  //Insert page if space available
                 recent[end++] = i;
             }
             else
@@ -131,7 +136,7 @@ void lru(int pages[], int frameSize)
                         min = j;
                     }
                 }
-                frame[min] = pages[i];
+                frame[min] = pages[i];  //Replace least recently used page
                 recent[min] = i;
             }
             printf("%d\t", pages[i]);
@@ -182,10 +187,11 @@ void optimal(int pages[], int frameSize)
             faults++;
             if(end<frameSize)
             {
-                frame[end++] = pages[i];
+                frame[end++] = pages[i];    //Insert page if space available
             }
             else
-            {
+            {  
+                //Find the page that will not be used for long time
                 int replace=-1, far=i;
                 for(int j=0;j<end;j++)
                 {
@@ -203,7 +209,7 @@ void optimal(int pages[], int frameSize)
                         replace = j;
                     }
                 }
-                frame[replace] = pages[i];
+                frame[replace] = pages[i];  //Replace optimal 
             }    
             printf("%d\t", pages[i]);
 
